@@ -15,6 +15,10 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+
 class DollarViewModel(
     val fetchDollarUseCase: FetchDollarUseCase
 ): ViewModel() {
@@ -32,11 +36,19 @@ class DollarViewModel(
     private val _uiState = MutableStateFlow<DollarUIState>(DollarUIState.Loading)
     val uiState: StateFlow<DollarUIState> = _uiState.asStateFlow()
 
+    fun getCurrentDate(): String {
+        val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        return formatter.format(Date())
+    }
+
     fun getDollar() {
         viewModelScope.launch(Dispatchers.IO) {
                     getToken()
-                    fetchDollarUseCase.invoke().collect {
-                        data -> _uiState.value = DollarUIState.Success(data) }
+
+                    fetchDollarUseCase.invoke().collect { data ->
+                        val updatedData = data.copy(lastUpdate = getCurrentDate())
+                        _uiState.value = DollarUIState.Success(updatedData)
+                    }
         }
     }
 
