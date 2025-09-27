@@ -62,7 +62,7 @@ class MovieRepository(
             MovieModel(
                 id = 1,
                 title = "Inception",
-                pathUrl = "https://image.tmdb.org/t/p/w185/qmDpIHrmpJINaRKAfWQfftjCdyi.jpg"
+                pathUrl = "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_FMjpg_UX1000_.jpg"
             ),
             MovieModel(
                 id = 2,
