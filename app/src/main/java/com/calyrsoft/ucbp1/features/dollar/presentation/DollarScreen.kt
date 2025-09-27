@@ -14,9 +14,14 @@
     import androidx.compose.material3.*
     import androidx.compose.ui.unit.dp
     import org.koin.androidx.compose.koinViewModel
+    import androidx.navigation.NavController
+
 
     @Composable
-    fun DollarScreen(viewModelDollar: DollarViewModel = koinViewModel()) {
+    fun DollarScreen(
+        navController: NavController,  // <- agregar NavController
+        viewModelDollar: DollarViewModel = koinViewModel()
+    ) {
         val state = viewModelDollar.uiState.collectAsState()
 
         Column(
@@ -46,10 +51,18 @@
                         text = "Última actualización: ${stateValue.data.lastUpdate ?: "--"}",
                         style = MaterialTheme.typography.bodySmall
                     )
+
+                    Spacer(modifier = Modifier.height(24.dp))
+
+                    // Botón para ir a PopularMoviesScreen
+                    Button(onClick = { navController.navigate("popular_movies") }) {
+                        Text("Ir a Películas Populares")
+                    }
                 }
             }
         }
     }
+
 
     @Composable
     fun DollarCard(title: String, buy: String, sell: String) {

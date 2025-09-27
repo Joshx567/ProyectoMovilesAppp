@@ -6,9 +6,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import org.koin.androidx.compose.koinViewModel
+import androidx.navigation.NavController
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
+
+import com.calyrsoft.ucbp1.navigation.Screen
 
 @Composable
 fun PopularMoviesScreen(
+    navController: NavController,
     popularMoviesViewModel: PopularMoviesViewModel = koinViewModel()
 ) {
     val state = popularMoviesViewModel.state.collectAsState()
@@ -32,5 +38,10 @@ fun PopularMoviesScreen(
                 }
             )
         }
+    }
+
+    // Botón para ir a DollarScreen
+    Button(onClick = { navController.navigate(Screen.Dollar.route) }) {
+        Text("Ir a Dollar")
     }
 }
