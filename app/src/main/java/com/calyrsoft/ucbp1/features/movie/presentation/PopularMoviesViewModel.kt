@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 
 class PopularMoviesViewModel(
     private val fetchPopularMovies: FetchPopularMoviesUseCase
-): ViewModel() {
+) : ViewModel() {
 
     sealed class UiState {
         object Loading : UiState()
@@ -29,12 +29,22 @@ class PopularMoviesViewModel(
             val result = fetchPopularMovies.invoke()
             result.fold(
                 onSuccess = {
-                    _state.value = UiState.Success(it)
+                    // Ordenamos primero los liked
+                    val sorted = it.sortedByDescending { m -> m.isLiked }
+                    _state.value = UiState.Success(sorted)
                 },
                 onFailure = {
-                    _state.value = UiState.Error("error")
+                    _state.value = UiState.Error("Error al cargar películas")
                 }
             )
+        }
+    }
+
+    // Función para actualizar Like
+    fun toggleLike(movie: MovieModel) {
+        viewModelScope.launch(Dispatchers.IO) {
+            fetchPopularMovies.toggleLike(movie) // Llama al repository
+            fetchPopularMovies() // recarga la lista actualizada
         }
     }
 }

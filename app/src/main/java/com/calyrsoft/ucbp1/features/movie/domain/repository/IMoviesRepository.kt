@@ -4,4 +4,5 @@ import com.calyrsoft.ucbp1.features.movie.domain.model.MovieModel
 
 interface IMoviesRepository {
     suspend fun fetchPopularMovies(): Result<List<MovieModel>>
+    suspend fun toggleLike(movie: MovieModel)
 }

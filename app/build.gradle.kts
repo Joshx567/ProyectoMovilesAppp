@@ -69,6 +69,7 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.coil.network)
     implementation(libs.androidx.navigation.compose)
+    implementation("androidx.compose.material:material-icons-extended:1.5.1")
 
     //local bundle room
     implementation(libs.bundles.local)
