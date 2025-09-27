@@ -3,16 +3,23 @@ package com.calyrsoft.ucbp1.features.dollar.data.mapper
 import com.calyrsoft.ucbp1.features.dollar.data.database.entity.DollarEntity
 import com.calyrsoft.ucbp1.features.dollar.domain.model.DollarModel
 
-fun DollarEntity.toModel() : DollarModel {
+fun DollarEntity.toModel(): DollarModel {
     return DollarModel(
-        dollarOfficial = dollarOfficial,
-        dollarParallel = dollarParallel
+        dollarOfficialBuy = dollarOfficialBuy,
+        dollarOfficialSell = dollarOfficialSell,
+        dollarParallelBuy = dollarParallelBuy,
+        dollarParallelSell = dollarParallelSell,
+        lastUpdate = lastUpdate
     )
 }
 
-fun DollarModel.toEntity() : DollarEntity {
+// Model -> Entity
+fun DollarModel.toEntity(): DollarEntity {
     return DollarEntity(
-        dollarOfficial = dollarOfficial,
-        dollarParallel = dollarParallel)
+        dollarOfficialBuy = dollarOfficialBuy ?: "",
+        dollarOfficialSell = dollarOfficialSell ?: "",
+        dollarParallelBuy = dollarParallelBuy ?: "",
+        dollarParallelSell = dollarParallelSell ?: "",
+        lastUpdate = lastUpdate ?: ""
+    )
 }
-
